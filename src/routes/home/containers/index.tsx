@@ -6,11 +6,12 @@ import './index.less';
  * @returns
  */
 const Home = () => {
-
+  console.log('home ---- ')
   return (
     <div className="home-wrapper">
       <div>
         home
+        hahhahha
       </div>
     </div >
   );

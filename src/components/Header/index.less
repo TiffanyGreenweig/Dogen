@@ -1,0 +1,98 @@
+.header-wrapper {
+  display: flex;
+  position: relative;
+  border-bottom: 1px solid #e2e2e5;
+  padding: 0 40px 0 24px;
+  height: 72px;
+  background-color: #fff;
+  align-items: center;
+  &.hidden {
+    border: none;
+    background-color: var(--root-bg, #fcf9fa);
+  }
+
+  &.isMobile {
+    justify-content: center;
+    & > .header-logo {
+      margin-top: 109rpx;
+      & > img {
+        width: 209rpx;
+        height: auto;
+      }
+    }
+  }
+
+  .header-logo {
+    font-family: 'PingFang SC';
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #e54552;
+    img {
+      display: inline-block;
+      width: 140px;
+      height: 32px;
+    }
+  }
+
+  .header-right-wrapper {
+    display: flex;
+    margin-right: 16px;
+    margin-left: auto;
+    justify-content: flex-end;
+    align-items: center;
+    .faq-policy-wrapper {
+      position: fixed;
+      // top: 260px;
+      right: 0;
+      bottom: calc((672 / 1080 * 100vh));
+      z-index: 99;
+    }
+    .header-QA,
+    .header-ph,
+    .header-eu {
+      display: flex;
+      border-radius: 4px;
+      padding: 8px;
+      font-size: 16px;
+      line-height: 24px;
+      cursor: pointer;
+      align-items: center;
+      .iconfont {
+        font-size: 20px;
+      }
+      span {
+        margin-left: 8px;
+      }
+    }
+    .header-QA {
+      margin-top: 16px;
+      color: #fc4c02;
+      background-color: #ffe8e5;
+    }
+    .header-ph,
+    .header-eu {
+      color: #3354ff;
+      background-color: #e5eaff;
+    }
+    .logout {
+      margin-right: 35px;
+      cursor: pointer;
+      .icon-logout {
+        font-size: 20px;
+        color: rgb(0 0 0 / 60%);
+      }
+    }
+    .message {
+      margin-right: 35px;
+      cursor: pointer;
+      .icon-tongzhi {
+        font-size: 20px;
+        color: rgb(0 0 0 / 60%);
+      }
+      .ant-badge-multiple-words {
+        padding: 0 4px;
+      }
+    }
+  }
+}

@@ -7,5 +7,6 @@ export const HomeRoutes = [
     path: '/',
     element: <Home />,
     title: 'Home',
+    key: 'home'
   }
 ];

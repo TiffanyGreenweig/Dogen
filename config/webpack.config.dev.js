@@ -513,7 +513,7 @@ module.exports = () => {
         index: paths.publicUrlOrPath,
       },
       hot: true,
-      port: 3000,
+      port: 3003,
       proxy: {
         '/api': {
           target: `${process.env.REACT_APP_BASE_API_URL}`,

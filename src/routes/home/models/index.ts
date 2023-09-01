@@ -1,4 +1,4 @@
-import { flow, Instance, types } from 'mobx-state-tree';
+import { Instance, types } from 'mobx-state-tree';
 
 // 导出namespace
 export const HOME_NAMESPACE = 'HomeModel';

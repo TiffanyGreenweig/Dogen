@@ -28,8 +28,6 @@ const GlobalModel = types
     const getUserInfo = flow(function* () {
     });
 
-
-
     // reset
     const reset = () => {
       self.userInfo = {};

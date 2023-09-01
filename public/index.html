@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html
+  data-node-env="<%= htmlWebpackPlugin.options.params.NODE_ENV %>"
+  data-peppa-env="<%= htmlWebpackPlugin.options.params.GROOT_ENV %>"
+  data-web-app-version="<%= htmlWebpackPlugin.options.params.WEB_APP_VERSION %>"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="description" content="Dogen" />
+    <meta name="keywords" content="xxx" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover"
+    />
+    <meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.params.REACT_APP_FACEBOOK_APPID %>" />
+    <meta name="description" property="og:description" content="Just come and join us！" />
+    <title>Dogen</title>
+    <style>
+      body p {
+        margin: 0;
+      }
+      body.pointer-open {
+        position: fixed;
+        left: 0;
+        right: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>Please turn on the Javascript.</noscript>
+    <div id="root"></div>
+  </body>
+</html>

@@ -2,16 +2,13 @@ import { Instance, types, unprotect } from 'mobx-state-tree';
 import { createContext, useContext } from 'react';
 import { injectStores } from '@mobx-devtools/tools';
 import GlobalModel from '@/models/global';
-import Authentication from '@/models/authentication';
-import HemoModel from '@/routes/home/models';
+import HomeModel from '@/routes/home/models';
 
 // 全局store注册
 export const RootStore = types.model('RootModel', {
 
   [GlobalModel.name]: types.optional(GlobalModel, {}),
-  [Authentication.name]: types.optional(Authentication, {}),
-
-  [HemoModel.name]: types.optional(HemoModel, {}),
+  [HomeModel.name]: types.optional(HomeModel, {}),
 });
 
 // 初始化全局store

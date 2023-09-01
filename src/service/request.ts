@@ -1,12 +1,7 @@
 import axios, { AxiosRequestConfig, Method, ResponseType } from 'axios';
-import { getItem } from './localStorage';
 import { compileUrl, getRequestParams } from './utils';
 import { getDeviceId } from '@allschool/tracker';
-import { captureException, withScope } from '@sentry/react';
-import { LOCAL_STORAGE } from '@constants/storage';
-import { ENGLISH } from '@constants/locale';
 import { BASENAME, NO_NEED_CHECK_ENTRY_LIST_ROUTE } from '@constants/common';
-import { getCAInfo } from '@utils/common';
 import { matchPath } from 'react-router';
 
 class ServiceError extends Error {
@@ -57,8 +52,6 @@ axiosInstance.interceptors.response.use(
   },
   error => {
     if (error?.response?.status === 401) {
-      localStorage.removeItem(LOCAL_STORAGE.USER_TOKEN);
-      localStorage.removeItem(LOCAL_STORAGE.ACCESS_USER_ID);
 
       if (!NO_NEED_CHECK_ENTRY_LIST_ROUTE.find(path => matchPath(path, location?.pathname?.replace('/teach', '')))) {
         const url = window.location.href;
@@ -110,31 +103,6 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-// 上报异常
-function reportError(error: any) {
-  withScope(scope => {
-    const { response, config } = error;
-    const { headers, baseURL, url, method } = config;
-    const { data } = response || {};
-    const { message, code } = data || {};
-    scope?.setContext('network', {
-      headers: JSON.stringify(headers),
-      url: baseURL + url,
-      method,
-      query: config.params,
-      body: config.data,
-      response: JSON.stringify(data),
-    });
-    scope?.setTag('c_http_url', baseURL + url);
-    scope?.setTag('c_http_method', method);
-    scope?.setTag('c_http_status', response?.status);
-    scope?.setTag('c_http_retry', config.retryCount);
-    scope?.setLevel('debug');
-
-    captureException(new ServiceError(config.retryCount > 0 ? '接口重试' : message, code));
-  });
-}
-
 const DEFAULT_ENV_VALUE = '0';
 interface RequestOptions {
   micro?: string;
@@ -157,11 +125,8 @@ const getEnvMap = (): Record<string, string> => {
 const setHeaders = async (): Promise<Record<string, any>> => {
   return {
     'device-id': getDeviceId(),
-    'user-token': (await getItem(LOCAL_STORAGE.USER_TOKEN)) ?? undefined,
-    // eg: Asia/Shanghai
-    timezone: localStorage.getItem(LOCAL_STORAGE.TIMEZONE) ?? '',
-    pub_lang: ENGLISH,
-    'ca-info': getCAInfo(),
+    // 'user-token': (await getItem(LOCAL_STORAGE.USER_TOKEN)) ?? undefined,
+    // 'ca-info': getCAInfo(),
     'huohua-podenv':
       (process.env.GROOT_ENV === 'dev' || process.env.GROOT_ENV === 'qa') && (await window.HuoHuaEnvTool?.getEnv()),
   };
