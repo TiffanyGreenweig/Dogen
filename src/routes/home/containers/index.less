@@ -1,48 +1,20 @@
 .home-wrapper {
   margin: 0 auto;
   padding-bottom: 20px;
-  max-width: 1200px;
-  & > p {
-    margin: 32px 0 24px;
-    font-size: 20px;
-    font-weight: 600;
-    font-style: normal;
-    line-height: 1.4;
-    color: #000;
+  .home-banner {
+    margin-bottom: 24px;
+    font-size: 22px;
+    line-height: 1.5;
+    text-align: center;
+    background-color: antiquewhite;
   }
-  .home-time {
-    position: relative;
-    border: 0.5px solid #ccd1d5;
-    border-radius: 12px;
-    padding: 24px 24px 0;
-    max-width: 1200px;
-    min-height: calc(100vh - 178px);
-
-    background: #fff;
-    .home-time-line {
-      position: absolute;
-      top: 24px;
-      left: 28px;
-      border-right: 1px dashed #f0f0f0;
-      width: 1px;
-      min-height: calc(100% - 24px);
-    }
-    &.home-time-nodata {
-      display: flex;
-      padding-bottom: 50px;
-      align-items: center;
-      justify-content: center;
-      .ant-empty-image {
-        height: 138px;
-      }
-      .home-time-nodata-desc {
-        margin-top: 32px;
-        color: rgb(0 0 0 / 60%);
-      }
-    }
-    // 去除原timeline的线
-    .ant-timeline-item-tail {
-      border-left: 0;
-    }
+  .home-chat-wrapper {
+    margin: 0 auto;
+    width: 600px;
+  }
+  .home-dogen-wrapper {
+    margin: 24px auto;
+    width: 600px;
+    height: 300px;
   }
 }

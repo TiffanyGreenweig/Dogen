@@ -1,9 +1,4 @@
 import { message } from 'antd';
-import NP from 'number-precision';
-
-
-
-export const APP_CLIENT_ID = 'sso-client-id';
 
 export function stringifyQuery(obj: any, separator = '&', prefix: string) {
   const result = Object.keys(obj || {})
@@ -109,23 +104,6 @@ export const downloadFile = async (url: string, fileName: string, options?: { do
   }
 };
 
-//  用户是否有效输入
-export const isValidInput = (data: any) => {
-  for (const key in data) {
-    if (
-      Object.prototype.hasOwnProperty.call(data, key) &&
-      data?.[key] &&
-      ((Array.isArray(data?.[key]) && data?.[key]?.length) || !Array.isArray(data[key]))
-    ) {
-      return true;
-    }
-  }
-  return false;
-};
-
-
-
-
 // 添加a标签跳转
 export const aJump = (url: string, targetValue = '_blank') => {
   let linkTo = document.createElement('a'); //创建a标签
@@ -167,62 +145,26 @@ export const pointerEvents = function (bodyCls = 'pointer-open'): any {
   };
 };
 
-// 金钱处理 - 除以100且保留2位小数
-export const priceDivide100 = (price: number | undefined) => (price ? NP.divide(price || 0, 100).toFixed(2) : '0.00');
 
-export const scrollToId = (anchor: string, position?: 'start') => {
-  const elem = document?.getElementById?.(anchor);
-  elem?.scrollIntoView({
-    behavior: 'smooth',
-    block: position,
-  });
-};
+export const getMinMaxRandom = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-export const handleVideoLength = (videoUrl: string) => {
-  return new Promise((resolve: (length: number) => any, reject: (err?: any) => any) => {
-    if (!videoUrl) resolve(0);
-    try {
-      let audio: HTMLAudioElement | null = new Audio(videoUrl);
-      // 元数据已加载
-      audio?.addEventListener?.('loadedmetadata', () => {
-        let duration = audio?.duration || 0;
-        resolve(duration);
-        audio?.removeEventListener?.('loadedmetadata', () => {});
-        audio = null;
-      });
-    } catch (err) {
-      reject(err);
-    }
-  });
-};
-
-// 获取url name
-export const getUlrName = (url: string) => {
-  if (!url) return '';
-  const arr = url?.split('/');
-  return arr?.[arr?.length - 1] || '';
-};
-export const noop = () => {};
-
-export function on<T extends Window | Document | HTMLElement | EventTarget>(
-  obj: T | null,
-  ...args: Parameters<T['addEventListener']> | [string, Function | null, ...any]
-): void {
-  if (obj && obj.addEventListener) {
-    obj.addEventListener(...(args as Parameters<HTMLElement['addEventListener']>));
-  }
+export const getSignRandom = (length: number) => {
+  return Array.from(new Array(length).keys()).map(() => getMinMaxRandom(6, 9))
 }
 
-export function off<T extends Window | Document | HTMLElement | EventTarget>(
-  obj: T | null,
-  ...args: Parameters<T['removeEventListener']> | [string, Function | null, ...any]
-): void {
-  if (obj && obj.removeEventListener) {
-    obj.removeEventListener(...(args as Parameters<HTMLElement['removeEventListener']>));
-  }
+// 获取每个coin随机区间
+export const getCoinsRandom = ({ number, containerWidth, coinWidth }: {
+  number: number; // 几个coin
+  containerWidth: number; // 容器宽度
+  coinWidth: number; // 硬币宽度
+}) => {
+  const randomList = Array.from(new Array(number).keys())?.map((index: number) => {
+    const minX = index === 0 ? (- containerWidth / 2) : (((- containerWidth / 2) + (containerWidth / number) * index) - coinWidth / 2)
+
+    const maxX = index === number - 1 ? containerWidth / 2 : (((- containerWidth / 2) + (containerWidth / number) * (index + 1)) + coinWidth / 2)
+
+    return [minX, maxX]
+  })
+
+  return randomList
 }
-
-export const isBrowser = typeof window !== 'undefined';
-
-export const isNavigator = typeof navigator !== 'undefined';
-

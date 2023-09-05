@@ -1,4 +1,6 @@
 import React from 'react';
+import Chat from '../components/Chat';
+import Guess from '../components/Guess';
 import './index.less';
 
 /**
@@ -9,9 +11,12 @@ const Home = () => {
   console.log('home ---- ')
   return (
     <div className="home-wrapper">
-      <div>
-        home
-        hahhahha
+      <div className="home-banner">welcome</div>
+      <div className='home-chat-wrapper'>
+        <Chat />
+      </div>
+      <div className='home-dogen-wrapper'>
+        <Guess />
       </div>
     </div >
   );
