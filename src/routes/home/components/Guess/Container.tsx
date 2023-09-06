@@ -1,29 +1,58 @@
-import React, { useState } from "react";
+import React, { useImperativeHandle, useState } from "react";
 import { animated, useSpring } from "@react-spring/web";
+import { getMinMaxRandom } from "@utils/common";
 
-const Container = ({ onShakeEnd, onShake }: any) => {
+const Container = ({ onShakeEnd, containerRef }: any) => {
+  const [count, setCount] = useState(0)
   const [shake, setShake] = useState<boolean>(false)
   const spring = useSpring({
-    x: 0,
-    y: shake ? -50 * Math.random() - 5 : 0,
-    loop: true,
     config: {
-      friction: shake ? 1 : 10,
+      friction: shake ? 5 : 10,
     },
-    duration: 2000,
+    from: {
+      x: 0,
+      y: 0,
+    },
+    to: async (next, cancel) => {
+      console.log('====== to shake', shake)
+      if (!shake) {
+        cancel()
+        return
+      }
+      await next({ y: 10, x: 20, background: '#fff59a' })
+      await next({ y: -5, x: -8, background: '#ff6d6d' })
+      await next({ y: 0, x: 0, background: '#ff6d6d' })
+    },
     onResolve() {
-      setShake(false)
       if (shake) {
         onShakeEnd?.()
+        setShake(false)
       }
     },
   })
+  const onShake = () => {
+    console.log('======= onShake')
+    if (!count) setCount(1)
+    setShake(status => !status)
+  }
+
+  useImperativeHandle(
+    containerRef,
+    () => {
+      return {
+        onShake
+      }
+    },
+    [],
+  )
   return <div className="container-wrapper">
-    <animated.div
-      onClick={() => {
-        if (!shake) onShake?.()
-        setShake(status => !status)
-      }}
+    {count === 0 ? <div style={{
+      position: 'absolute',
+      width: 300,
+      height: 150,
+      background: 'skyblue',
+      borderRadius: 8,
+    }}></div> : <animated.div
       style={{
         position: 'absolute',
         width: 300,
@@ -32,7 +61,7 @@ const Container = ({ onShakeEnd, onShake }: any) => {
         borderRadius: 8,
         ...spring,
       }}
-    />
+    />}
   </div>
 }
 

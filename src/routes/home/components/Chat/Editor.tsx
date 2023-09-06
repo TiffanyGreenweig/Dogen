@@ -1,27 +1,36 @@
 import { Button, Form, Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 
 const { TextArea } = Input;
 
-interface EditorProps {
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onSubmit: () => void;
-  submitting: boolean;
-  value: string;
-}
+const Editor = ({ onSubmit }: any) => {
+  const [chatForm] = Form.useForm()
+  const [submitting, setSubmitting] = useState(false);
 
-const Editor = ({ onChange, onSubmit, submitting, value }: EditorProps) => (
-  <Form className="chat-editor-wrapper">
-    <Form.Item>
-      <TextArea rows={4} onChange={onChange} value={value}
-        style={{ resize: 'none' }} />
-    </Form.Item>
-    <Form.Item className="chat-editor-btn">
-      <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-        发送
-      </Button>
-    </Form.Item>
-  </Form>
-);
+  const handleSubmit = () => {
+    const text = chatForm.getFieldValue('text')
+    if (!text) return
+    onSubmit?.(text)
+    setTimeout(() => {
+      chatForm.resetFields()
+      setSubmitting(false)
+    }, 200)
+  };
+
+  return (
+    <Form className="chat-editor-wrapper" form={chatForm}>
+      <Form.Item name="text">
+        <TextArea rows={4} readOnly={submitting}
+          style={{ resize: 'none' }} />
+      </Form.Item>
+      <Form.Item className="chat-editor-btn">
+        <Button htmlType="submit" loading={submitting} onClick={handleSubmit} type="primary">
+          发送
+        </Button>
+      </Form.Item>
+
+    </Form>
+  )
+};
 
 export default Editor

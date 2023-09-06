@@ -7,7 +7,6 @@ import './index.less';
  * 用户头部导航栏
  */
 const Header: FC<PropsWithChildren<any>> = ({ children }) => {
-  console.log('====== Header 123')
   //展示常规Header
   return (
     <>
