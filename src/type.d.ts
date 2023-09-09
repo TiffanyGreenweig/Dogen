@@ -79,3 +79,11 @@ declare module 'changedpi' {
   const changeDpiDataUrl: (base64Image, dpi) => string;
   export { changeDpiBlob, changeDpiDataUrl };
 }
+
+
+declare interface IChatItem {
+  role?: string;
+  avatar?: string;
+  content?: string;
+  datetime?: number | string;
+}

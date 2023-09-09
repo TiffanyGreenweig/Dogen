@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Chat from '../components/Chat';
-// import Guess from '../components/Guess';
+import Guess from '../components/Guess';
 import './index.less';
 
 /**
@@ -8,15 +8,23 @@ import './index.less';
  * @returns
  */
 const Home = () => {
+  const guessRef = useRef<any>()
+  const [resultRecord, setResultRecord] = useState<any>()
+  const onGuessEnd = (result: any) => {
+    console.log('==== result', result)
+    setResultRecord(result)
+    // guessRef?.current?.hideGuess?.()
+  }
   return (
     <div className="home-wrapper">
       <div className="home-banner">welcome</div>
-      <div className='home-chat-wrapper'>
-        <Chat />
+      <Chat />
+      <Guess guessRef={guessRef} guessEnd={onGuessEnd} />
+      <div className='home-guess-record'>
+        {
+          resultRecord
+        }
       </div>
-      {/* <div className='home-dogen-wrapper'>
-        <Guess />
-      </div> */}
     </div >
   );
 };

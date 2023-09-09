@@ -12,6 +12,7 @@ export type HOME_TYPE_MODEL = Instance<typeof HomeModel>;
 const HomeModel = types
   .model({
     chatData: types.optional(types.frozen<any>(), []),
+    divination: types.optional(types.frozen<string>(), ''),
   })
   .actions((self: any) => {
     const modifyChat = flow(function* (params?: any) {
@@ -24,12 +25,29 @@ const HomeModel = types
       self.chatData = filterData;
       return filterData;
     });
+
+    // 用爻获取卦
+    const getDivination = flow(function* (params?: any) {
+      const divination = yield REQUEST(
+        'POST',
+        `/divination/symbol`,
+      )(params);
+      self.divination = divination
+      return divination
+    });
+
+    const updateChat = (data: any[]) => {
+      self.chatData = data;
+    }
     // 重置数据
     const resetModel = () => {
       self.chatData = [];
+      self.divination = '';
     };
     return {
       modifyChat,
+      updateChat,
+      getDivination,
       resetModel,
     };
   })

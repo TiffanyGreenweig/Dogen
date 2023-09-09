@@ -28,5 +28,14 @@ export const DATA_ENUM: any = {
   }
 }
 
+// 爻
+export const HEXAGRAM = {
+  YIN: 0, // 阴 - -
+  YANG: 1, // 阳 -
+}
 
-export const CHAT_STORAGE = 'd_h'
+// 单枚硬币正反
+export enum COIN_TYPE {
+  HEAD = 3, // 正
+  TAIL = 2, // 反
+}

@@ -1,7 +1,10 @@
+import Guess from "@routes/home/components/Guess";
 import React from "react";
 
 export default () => {
   return (
-    <div>124</div>
+    <div>
+      <Guess />
+    </div>
   )
 }

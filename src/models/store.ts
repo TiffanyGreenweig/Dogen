@@ -3,12 +3,14 @@ import { createContext, useContext } from 'react';
 import { injectStores } from '@mobx-devtools/tools';
 import GlobalModel from '@/models/global';
 import HomeModel from '@/routes/home/models';
+import NameModel from '@/routes/name/models';
 
 // 全局store注册
 export const RootStore = types.model('RootModel', {
 
   [GlobalModel.name]: types.optional(GlobalModel, {}),
   [HomeModel.name]: types.optional(HomeModel, {}),
+  [NameModel.name]: types.optional(NameModel, {}),
 });
 
 // 初始化全局store

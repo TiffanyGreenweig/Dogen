@@ -149,7 +149,7 @@ export const pointerEvents = function (bodyCls = 'pointer-open'): any {
 export const getMinMaxRandom = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 export const getSignRandom = (length: number) => {
-  return Array.from(new Array(length).keys()).map(() => getMinMaxRandom(6, 9))
+  return Array.from(new Array(length).keys()).map(() => getMinMaxRandom(2, 3))
 }
 
 // 获取每个coin随机区间
