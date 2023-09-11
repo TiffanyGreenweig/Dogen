@@ -94,12 +94,15 @@ const Guess = ({ guessRef, guessEnd }: any) => {
         }}>放弃</div>
       </div>}
       <div className="guess-result">
-        <div className="guess-result-bg" />
+        <div className={`guess-result-bg ${result?.length !== 6 ? 'run' : ''}`} style={{
+          opacity: (result?.length - 1) * 0.1 + 0.1
+        }} />
         {!divination && !!result?.length && result?.map(item => <div key={item?.key} className={HEXAGRAM.YIN === item?.data ? 'guess-result-item-yin' : 'guess-result-item-yang'} />)}
         {divination && <div>{divination}</div>}
       </div>
 
       <div className="guess-wrapper">
+        <div className="guess-background" />
         <Coins coinRef={coinRef} onSwayEnd={coinSwayEnd} />
         <Container
           containerRef={containerRef}

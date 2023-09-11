@@ -4,7 +4,7 @@ import { ROLES_ENUM } from "@constants/common";
 import { useStore } from "@models/store";
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useRef } from "react";
-import { NAME_NAMESPACE, NAME_TYPE_MODEL } from "../models";
+import { NAME_NAMESPACE, NAME_TYPE_MODEL } from "../../models/name";
 
 import './index.less'
 
@@ -38,7 +38,6 @@ const Name = () => {
 
   return (
     <div className="name-wrapper">
-      <div className="name-title">起名</div>
       <div className='name-chat-wrapper'>
         <ChatFrame comments={chatData} defaultMsg="您好，我是你的起名小助手，请问你想对什么事物起名呢？" commentRef={commentRef} />
         <ChatInput onSubmit={handleSubmit} />

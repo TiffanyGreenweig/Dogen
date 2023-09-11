@@ -8,8 +8,36 @@
     text-align: center;
     background-color: antiquewhite;
   }
+  .home-tab-wrapper {
+    display: flex;
+    margin: 20px auto;
+    width: 500px;
+    justify-content: space-between;
+    div {
+      width: 160px;
+      height: 40px;
+      font-size: 20px;
+      line-height: 2;
+      text-align: center;
+      color: #fff;
+      background: url("@/assets/images/btn_bg.png") no-repeat center;
+      background-size: 100% auto;
+      opacity: .7;
+      cursor: pointer;
+      &.active {
+        opacity: 1;
+      }
+    }
+  }
   .home-chat-wrapper {
     margin: 0 auto;
     width: 600px;
+  }
+  .home-guess-record {
+    position: fixed;
+    top: 40%;
+    right: 80px;
+    font-size: 30px;
+    line-height: 1;
   }
 }

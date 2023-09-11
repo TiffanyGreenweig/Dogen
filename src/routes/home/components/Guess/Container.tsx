@@ -1,8 +1,10 @@
-import React, { useImperativeHandle, useState } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import classNames from "classnames";
+import BackVideo from "./BackVideo";
 
 const Container = ({ onShakeEnd, containerRef }: any) => {
   const [shake, setShake] = useState<boolean>(false)
+  const videoPlayerRef = useRef<any>()
   const onShake = () => {
     setShake(status => !status)
     if (!shake) {
@@ -12,6 +14,7 @@ const Container = ({ onShakeEnd, containerRef }: any) => {
       }, 1800)
     }
   }
+
 
   useImperativeHandle(
     containerRef,
@@ -44,6 +47,7 @@ const Container = ({ onShakeEnd, containerRef }: any) => {
     })} >
       <div />
     </div>
+    {/* <BackVideo videoPlayerRef={videoPlayerRef} /> */}
   </div>
 }
 

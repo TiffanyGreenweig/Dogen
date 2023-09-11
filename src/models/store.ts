@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 import { injectStores } from '@mobx-devtools/tools';
 import GlobalModel from '@/models/global';
 import HomeModel from '@/routes/home/models';
-import NameModel from '@/routes/name/models';
+import NameModel from '@routes/home/models/name';
 
 // 全局store注册
 export const RootStore = types.model('RootModel', {

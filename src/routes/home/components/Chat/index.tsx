@@ -13,7 +13,7 @@ import ChatInput from "@components/ChatInput";
  * todo 聊天增加loading
  * @returns
  */
-const Chat = () => {
+const Chat = ({ showDivination, gessResult }: any) => {
   const commentRef = useRef<any>()
   const { chatData, modifyChat, updateChat } = useStore<HOME_TYPE_MODEL>(HOME_NAMESPACE);
 
@@ -39,6 +39,7 @@ const Chat = () => {
   return (
 
     <div className='home-chat-wrapper'>
+      <div className="chat-guess-btn" onClick={showDivination} />
       <ChatFrame comments={chatData} commentRef={commentRef} />
       <ChatInput onSubmit={handleSubmit} />
     </div>

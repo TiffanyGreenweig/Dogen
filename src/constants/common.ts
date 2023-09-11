@@ -39,3 +39,19 @@ export enum COIN_TYPE {
   HEAD = 3, // 正
   TAIL = 2, // 反
 }
+
+export enum TAB_ENUM {
+  GUESS = 1, // 卜卦
+  NAME = 2 // 起名
+}
+
+export const TAB_MENU = [
+  {
+    key: TAB_ENUM.GUESS,
+    title: '卜卦'
+  },
+  {
+    key: TAB_ENUM.NAME,
+    title: '起名'
+  },
+]
