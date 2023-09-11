@@ -36,18 +36,23 @@ const HomeModel = types
       return divination
     });
 
+    const resetDivination = () => {
+      self.divination = '';
+    }
+
     const updateChat = (data: any[]) => {
       self.chatData = data;
     }
     // 重置数据
     const resetModel = () => {
       self.chatData = [];
-      self.divination = '';
+      resetDivination()
     };
     return {
       modifyChat,
       updateChat,
       getDivination,
+      resetDivination,
       resetModel,
     };
   })

@@ -4,6 +4,8 @@ import { animated } from "@react-spring/web";
 import { getCoinsRandom, getMinMaxRandom, getSignRandom } from "@utils/common";
 // import { Button } from "antd";
 
+import './index.less'
+
 import classNames from "classnames";
 import { COIN_TYPE } from "@constants/common";
 
@@ -82,9 +84,6 @@ const Coins = ({ coinRef, onSwayEnd }: any) => {
         })}
         style={{
           position: 'absolute',
-          width: 80,
-          height: 80,
-          borderRadius: 40,
           zIndex: i + 2,
           ...props,
         }}

@@ -1,23 +1,25 @@
 import React, { useImperativeHandle, useRef, useState } from "react";
+import { observer } from "mobx-react-lite";
+import { message } from "antd";
 
-import copy from 'copy-to-clipboard'; import Container from "./Container";
+// import copy from 'copy-to-clipboard';
+import Container from "./Container";
 import Coins from "./Coins";
 import { HEXAGRAM } from "@constants/common";
 
-import './index.less'
 import { useStore } from "@models/store";
 import { HOME_NAMESPACE, HOME_TYPE_MODEL } from "@routes/home/models";
-import { message } from "antd";
-import { observer } from "mobx-react-lite";
+
+import './index.less'
 
 const Guess = ({ guessRef, guessEnd }: any) => {
   const [messageApi, contextHolder] = message.useMessage();
-  const { divination, getDivination } = useStore<HOME_TYPE_MODEL>(HOME_NAMESPACE);
+  const { divination, resetDivination, getDivination } = useStore<HOME_TYPE_MODEL>(HOME_NAMESPACE);
   const [btn, setBtn] = useState(true)
   const coinRef = useRef<any>()
   const containerRef = useRef<any>()
   const [result, setResult] = useState<any[]>([])
-  const [show, setShow] = useState<boolean>(true)
+  const [show, setShow] = useState<boolean>(false)
 
   console.log('divination', divination)
   const showGuess = () => {
@@ -27,6 +29,8 @@ const Guess = ({ guessRef, guessEnd }: any) => {
   const hideGuess = () => {
     setShow(false)
     setResult([])
+    setBtn(true)
+    resetDivination()
   }
 
 
@@ -34,10 +38,10 @@ const Guess = ({ guessRef, guessEnd }: any) => {
     const _divination = await getDivination({
       text: _result?.map(item => item?.data)?.join('')
     })
-    copy(_divination)
+    // copy(_divination)
     messageApi.open({
       icon: <></>,
-      content: '已将卦象复制到剪贴板',
+      content: '已将卦象复制到输入框',
       // className: 'custom-class',
     });
     guessEnd?.(_divination)
@@ -87,28 +91,32 @@ const Guess = ({ guessRef, guessEnd }: any) => {
       {btn && <div className="guess-btn-mask">
         <div onClick={() => {
           setBtn(false)
-          startDogen()
+          setTimeout(() => {
+            startDogen()
+          }, 1000)
         }}>卜一卦</div>
         <div onClick={() => {
           hideGuess()
         }}>放弃</div>
       </div>}
-      <div className="guess-result">
-        <div className={`guess-result-bg ${result?.length !== 6 ? 'run' : ''}`} style={{
-          opacity: (result?.length - 1) * 0.1 + 0.1
-        }} />
-        {!divination && !!result?.length && result?.map(item => <div key={item?.key} className={HEXAGRAM.YIN === item?.data ? 'guess-result-item-yin' : 'guess-result-item-yang'} />)}
-        {divination && <div>{divination}</div>}
-      </div>
+      {!btn && <>
+        <div className="guess-result">
+          <div className={`guess-result-bg ${result?.length !== 6 ? 'run' : ''}`} style={{
+            opacity: (result?.length - 1) * 0.1 + 0.1
+          }} />
+          {!divination && !!result?.length && result?.map(item => <div key={item?.key} className={HEXAGRAM.YIN === item?.data ? 'guess-result-item-yin' : 'guess-result-item-yang'} />)}
+          {divination && <div>{divination}</div>}
+        </div>
 
-      <div className="guess-wrapper">
-        <div className="guess-background" />
-        <Coins coinRef={coinRef} onSwayEnd={coinSwayEnd} />
-        <Container
-          containerRef={containerRef}
-          onShakeEnd={containerShakeEnd}
-        />
-      </div>
+        <div className="guess-wrapper">
+          <div className="guess-background" />
+          <Coins coinRef={coinRef} onSwayEnd={coinSwayEnd} />
+          <Container
+            containerRef={containerRef}
+            onShakeEnd={containerShakeEnd}
+          />
+        </div>
+      </>}
     </div>
   )
 }

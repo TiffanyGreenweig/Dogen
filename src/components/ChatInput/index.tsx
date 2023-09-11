@@ -5,8 +5,7 @@ import './index.less'
 
 const { TextArea } = Input;
 
-const ChatInput = ({ onSubmit }: any) => {
-  const [chatForm] = Form.useForm()
+const ChatInput = ({ onSubmit, chatForm }: any) => {
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = () => {

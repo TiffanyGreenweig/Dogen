@@ -7,7 +7,7 @@
   }
 }
 
-@keyframes run_result {
+@keyframes runResult {
   0% {
     transform: rotate(0deg);
   }
@@ -61,7 +61,7 @@
     radial-gradient(white, rgb(255 255 255 / 15%) 1px, transparent 30px),
     radial-gradient(white, rgb(255 255 255 / 10%) 2px, transparent 40px),
     radial-gradient(rgb(255 255 255 / 40%), rgb(255 255 255 / 10%) 2px, transparent 30px);
-  background-position: 0 0, 62px 82px, 1130px 270px, 1170px 1100px;
+  background-position: -20px 0, 62px 82px, 1130px 270px, 1170px 1100px;
   background-size: 500px 550px, 830px 950px, 450px 450px, 1000px 950px;
   .guess-btn-mask {
     display: flex;
@@ -91,6 +91,7 @@
     margin: 0 auto;
     width: 600px;
     height: 600px;
+    animation: show 1s ease;
     .guess-background {
       position: absolute;
       top: 0;
@@ -99,32 +100,12 @@
       width: 100%;
       height: 100%;
       background: url("@/assets/images/table.png") no-repeat center;
-      background-size: auto 100%;
-      opacity: .8;
-      box-shadow: 0 10px 40px 10px rgb(0 0 0 / 58%);
+      background-size: auto 101%;
+      opacity: .6;
+      box-shadow: 0 10px 40px 10px rgb(255 255 255 / 28%);
       transform: rotateX(30deg);
     }
-    .coins-wrapper {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      z-index: 1;
-      margin-left: -30px;
-      width: 60px;
-      height: 60px;
-      .coins-item {
-        width: 100%;
-        height: 100%;
-        &.coin-head {
-          background: url("@/assets/images/head.png") no-repeat center;
-          background-size: 100% 100%;
-        }
-        &.coin-tail {
-          background: url("@/assets/images/tail.png") no-repeat center;
-          background-size: 100% 100%;
-        }
-      }
-    }
+
     .container-wrapper {
       display: flex;
       position: absolute;
@@ -144,44 +125,6 @@
         }
         background: url("@/assets/images/turtle.png") no-repeat center;
         background-size: 100%;
-      }
-      .container-content {
-        width: 200px;
-        height: 200px;
-        &.run {
-          animation: run 2s ease-out;
-        }
-        div {
-          overflow: hidden;
-          position: relative;
-          border-radius: 50%;
-          width: 200px;
-          height: 200px;
-          background: linear-gradient(rgb(255 255 255) 50%, rgb(0 0 0) 50%);
-          box-shadow: 0 0 30px 10px rgb(0 0 0 / 8%);
-          &::before {
-            display: block;
-            position: absolute;
-            right: 0;
-            bottom: 50px;
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(rgb(255 255 255) 25%, rgb(0 0 0) 25%);
-            content: "";
-          }
-          &::after {
-            display: block;
-            position: absolute;
-            top: 50px;
-            left: 0;
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(rgb(0 0 0) 25%, rgb(255 255 255) 25%);
-            content: "";
-          }
-        }
       }
     }
   }
@@ -203,10 +146,10 @@
       z-index: 1;
       width: 300px;
       height: 300px;
-      background: url(@/assets/images/background.png) no-repeat center;
+      background: url("@/assets/images/background.png") no-repeat center;
       background-size: 100% auto;
       &.run {
-        animation: run_result 3s  linear infinite;
+        animation: runResult 3s  linear infinite;
       }
     }
     .guess-result-item-yin,
@@ -219,7 +162,7 @@
     }
     // 一横
     .guess-result-item-yang {
-      background-color: #000;
+      background-color: #fff;
     }
     // 两横
     .guess-result-item-yin {
@@ -229,7 +172,7 @@
       &::after {
         width: 35px;
         height: 10px;
-        background-color: #000;
+        background-color: #fff;
         content: "";
       }
     }

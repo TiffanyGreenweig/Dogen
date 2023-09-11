@@ -13,10 +13,12 @@ const Home = () => {
   const guessRef = useRef<any>()
   const [resultRecord, setResultRecord] = useState<any>()
   const [activeTab, setActiveTab] = useState(TAB_ENUM.GUESS)
+  const divinationRef = useRef<any>()
   const onGuessEnd = (result: any) => {
     console.log('==== result', result)
     setResultRecord(result)
     // guessRef?.current?.hideGuess?.()
+    divinationRef?.current?.initChatText(result)
   }
   return (
     <div className="home-wrapper">
@@ -24,12 +26,13 @@ const Home = () => {
       <div className='home-tab-wrapper'>
         {TAB_MENU?.map(item => <div key={item?.key} className={item?.key === activeTab ? 'active' : ''} onClick={() => setActiveTab(item?.key)}>{item?.title}</div>)}
       </div>
-      {activeTab === TAB_ENUM.GUESS ? <Chat showDivination={() => {
+      {activeTab === TAB_ENUM.GUESS ? <Chat chatRef={divinationRef} showDivination={() => {
         guessRef?.current?.showGuess?.()
       }} /> : <NameChat />}
 
       <Guess guessRef={guessRef} guessEnd={onGuessEnd} />
       <div className='home-guess-record'>
+        <p>本次结果</p>
         {
           resultRecord
         }
