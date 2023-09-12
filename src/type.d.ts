@@ -9,6 +9,8 @@ declare namespace NodeJS {
   }
 }
 
+declare module 'particles.js';
+
 declare module '*.avif' {
   const src: string;
   export default src;

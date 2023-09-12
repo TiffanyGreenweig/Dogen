@@ -2,9 +2,10 @@ import React, { useImperativeHandle, useState } from "react";
 import { List, Spin } from "antd";
 import classNames from 'classnames'
 import moment from "moment";
-import { DATA_ENUM, ROLES_ENUM } from "@constants/common";
 
+import { DATA_ENUM, ROLES_ENUM } from "@constants/common";
 import '@/assets/style/keyframe.less'
+
 import './index.less'
 
 // todo 支持内容html渲染

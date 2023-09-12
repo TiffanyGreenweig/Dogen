@@ -22,7 +22,6 @@ const Home = () => {
   }
   return (
     <div className="home-wrapper">
-      <div className="home-banner">welcome</div>
       <div className='home-tab-wrapper'>
         {TAB_MENU?.map(item => <div key={item?.key} className={item?.key === activeTab ? 'active' : ''} onClick={() => setActiveTab(item?.key)}>{item?.title}</div>)}
       </div>
@@ -31,12 +30,12 @@ const Home = () => {
       }} /> : <NameChat />}
 
       <Guess guessRef={guessRef} guessEnd={onGuessEnd} />
-      <div className='home-guess-record'>
+      {resultRecord && <div className='home-guess-record'>
         <p>本次结果</p>
         {
           resultRecord
         }
-      </div>
+      </div>}
     </div >
   );
 };

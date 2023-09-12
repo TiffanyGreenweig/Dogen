@@ -13,15 +13,21 @@ const NameModel = types
   .model({
     chatData: types.optional(types.frozen<any>(), []),
   })
+  .views(self => {
+    return {
+      get filterChatData() {
+        const filterData = (self?.chatData || [])?.filter((item: IChatItem) => item?.role === ROLES_ENUM.USER || item?.role === ROLES_ENUM.ASSISTANT)
+        return filterData;
+      },
+    };
+  })
   .actions((self: any) => {
     const modifyChat = flow(function* (params?: any) {
       const chatData = yield REQUEST(
         'POST',
         `/divination/naming`,
       )(params);
-      const filterData = (chatData?.history || [])?.filter((item: IChatItem) => item?.role === ROLES_ENUM.USER || item?.role === ROLES_ENUM.ASSISTANT)
-      self.chatData = filterData;
-      return filterData;
+      self.chatData = chatData?.history || [];
     });
     const updateChat = (data: any[]) => {
       console.log('===== data', data)

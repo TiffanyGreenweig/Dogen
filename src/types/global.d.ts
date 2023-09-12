@@ -24,6 +24,7 @@ declare global {
     HuoHuaEnvTool?: {
       getEnv: () => Promise<string>;
     };
+    particlesJS: (tag_id: string, params: any) => any;
   }
   type ValueOf<T> = T[keyof T];
 }

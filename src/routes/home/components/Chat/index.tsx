@@ -17,7 +17,7 @@ import { Form } from "antd";
 const Chat = ({ showDivination, chatRef }: any) => {
   const [chatForm] = Form.useForm()
   const commentRef = useRef<any>()
-  const { chatData, modifyChat, updateChat } = useStore<HOME_TYPE_MODEL>(HOME_NAMESPACE);
+  const { chatData, filterChatData, modifyChat, updateChat } = useStore<HOME_TYPE_MODEL>(HOME_NAMESPACE);
 
   const handleSubmit = async (text: string) => {
     commentRef?.current?.updateStatus(true)
@@ -36,7 +36,7 @@ const Chat = ({ showDivination, chatRef }: any) => {
     setTimeout(() => {
       commentRef?.current?.scrollBottom()
     }, 100)
-  }, [chatData])
+  }, [filterChatData])
 
   const initChatText = (value: string) => {
     chatForm.setFieldValue('text', value)
@@ -56,7 +56,7 @@ const Chat = ({ showDivination, chatRef }: any) => {
 
     <div className='home-chat-wrapper'>
       <div className="chat-guess-btn" onClick={showDivination} />
-      <ChatFrame comments={chatData} commentRef={commentRef} />
+      <ChatFrame comments={filterChatData} commentRef={commentRef} />
       <ChatInput onSubmit={handleSubmit} chatForm={chatForm} />
     </div>
   );

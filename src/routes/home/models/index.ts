@@ -14,16 +14,21 @@ const HomeModel = types
     chatData: types.optional(types.frozen<any>(), []),
     divination: types.optional(types.frozen<string>(), ''),
   })
+  .views(self => {
+    return {
+      get filterChatData() {
+        const filterData = (self?.chatData || [])?.filter((item: IChatItem) => item?.role === ROLES_ENUM.USER || item?.role === ROLES_ENUM.ASSISTANT)
+        return filterData;
+      },
+    };
+  })
   .actions((self: any) => {
     const modifyChat = flow(function* (params?: any) {
       const chatData = yield REQUEST(
         'POST',
         `/divination/chat`,
       )(params);
-      console.log('====== chatData', chatData)
-      const filterData = (chatData?.history || [])?.filter((item: IChatItem) => item?.role === ROLES_ENUM.USER || item?.role === ROLES_ENUM.ASSISTANT)
-      self.chatData = filterData;
-      return filterData;
+      self.chatData = chatData?.history || [];
     });
 
     // 用爻获取卦
@@ -41,6 +46,7 @@ const HomeModel = types
     }
 
     const updateChat = (data: any[]) => {
+      console.log('====== updateChat', data)
       self.chatData = data;
     }
     // 重置数据

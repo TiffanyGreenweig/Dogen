@@ -10,13 +10,16 @@ export const USER_AVATAR = 'https://www.mphome.cn/up/img/4/b13066786395773.jpg'
 // export const ASSISTANT_AVATAR = 'https://tupian.qqw21.com/article/UploadPic/2018-8/2018821122526606.jpg'
 export const ASSISTANT_AVATAR = 'https://hf-sim.allschoolcdn.com/sim/sparkenglish-sv/groot-teaching/teach/useInfo/1693993171818/1693993171819/2023-09-06/42d11b6f-ec28-48ee-c2d9-5e2142f076d2.jpg'
 
+import AVATAR_USER from '@/assets/images/user_avatar.jpg'
+import AVATAR_ASSISTANT from '@/assets/images/assistant_avatar.jpg'
+
 export const DATA_ENUM: any = {
   [ROLES_ENUM.USER]: {
-    avatar: USER_AVATAR,
+    avatar: AVATAR_USER,
     name: '幸运儿',
   },
   [ROLES_ENUM.ASSISTANT]: {
-    avatar: ASSISTANT_AVATAR,
+    avatar: AVATAR_ASSISTANT,
     name: '大师',
   },
   'default': {

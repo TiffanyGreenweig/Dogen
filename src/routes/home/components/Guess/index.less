@@ -7,12 +7,21 @@
   }
 }
 
-@keyframes runResult {
+@keyframes run-result {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes run-table {
+  0% {
+    transform: rotateX(30deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(30deg) rotateZ(360deg);
   }
 }
 
@@ -55,14 +64,7 @@
   z-index: 99;
   width: 100vw;
   height: 100vh;
-  background-color: black;
-  background-image:
-    radial-gradient(white, rgb(255 255 255 / 20%) 2px, transparent 40px),
-    radial-gradient(white, rgb(255 255 255 / 15%) 1px, transparent 30px),
-    radial-gradient(white, rgb(255 255 255 / 10%) 2px, transparent 40px),
-    radial-gradient(rgb(255 255 255 / 40%), rgb(255 255 255 / 10%) 2px, transparent 30px);
-  background-position: -20px 0, 62px 82px, 1130px 270px, 1170px 1100px;
-  background-size: 500px 550px, 830px 950px, 450px 450px, 1000px 950px;
+  background-color: #000;
   .guess-btn-mask {
     display: flex;
     position: fixed;
@@ -81,8 +83,6 @@
       line-height: 1.8;
       text-align: center;
       color: #fff;
-      background: url("@/assets/images/btn_bg.png") no-repeat center;
-      background-size: 100% auto;
       cursor: pointer;
     }
   }
@@ -104,6 +104,7 @@
       opacity: .6;
       box-shadow: 0 10px 40px 10px rgb(255 255 255 / 28%);
       transform: rotateX(30deg);
+      animation: run-table 60s  linear infinite;
     }
 
     .container-wrapper {
@@ -139,6 +140,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: #fff;
+    .guess-result-divination {
+      font-size: 20px;
+      opacity: 1;
+      transition: font-size 1s, opacity 1s;
+    }
     .guess-result-bg {
       position: absolute;
       top: 0;
@@ -149,7 +156,7 @@
       background: url("@/assets/images/background.png") no-repeat center;
       background-size: 100% auto;
       &.run {
-        animation: runResult 3s  linear infinite;
+        animation: run-result 3s  linear infinite;
       }
     }
     .guess-result-item-yin,

@@ -1,19 +1,19 @@
-import React, { useImperativeHandle, useRef, useState } from "react";
+import React, { useCallback, useImperativeHandle, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { message } from "antd";
+import Particles from "react-tsparticles";
 
-// import copy from 'copy-to-clipboard';
 import Container from "./Container";
 import Coins from "./Coins";
 import { HEXAGRAM } from "@constants/common";
 
+// import useTrail from "@hooks/useTrail";
+import useRepulse from "@hooks/useRepulse";
 import { useStore } from "@models/store";
 import { HOME_NAMESPACE, HOME_TYPE_MODEL } from "@routes/home/models";
 
 import './index.less'
 
 const Guess = ({ guessRef, guessEnd }: any) => {
-  const [messageApi, contextHolder] = message.useMessage();
   const { divination, resetDivination, getDivination } = useStore<HOME_TYPE_MODEL>(HOME_NAMESPACE);
   const [btn, setBtn] = useState(true)
   const coinRef = useRef<any>()
@@ -21,7 +21,7 @@ const Guess = ({ guessRef, guessEnd }: any) => {
   const [result, setResult] = useState<any[]>([])
   const [show, setShow] = useState<boolean>(false)
 
-  console.log('divination', divination)
+  const { particlesInit, options } = useRepulse()
   const showGuess = () => {
     setShow(true)
   }
@@ -33,19 +33,18 @@ const Guess = ({ guessRef, guessEnd }: any) => {
     resetDivination()
   }
 
+  const particlesLoaded = useCallback(async (container: any) => {
+    await console.log(container);
+  }, []);
 
   const getDivinationFn = async (_result: any[]) => {
     const _divination = await getDivination({
       text: _result?.map(item => item?.data)?.join('')
     })
-    // copy(_divination)
-    messageApi.open({
-      icon: <></>,
-      content: '已将卦象复制到输入框',
-      // className: 'custom-class',
-    });
-    guessEnd?.(_divination)
-    hideGuess()
+    setTimeout(() => {
+      guessEnd?.(_divination)
+      hideGuess()
+    }, 1000)
   }
 
   // 每轮硬币甩出并收回后返回结果
@@ -87,7 +86,7 @@ const Guess = ({ guessRef, guessEnd }: any) => {
   // 点击进行卜卦
   return (
     <div className="guess-mask-wrapper">
-      {contextHolder}
+      <Particles id="tsparticles" init={particlesInit} loaded={particlesLoaded} options={options} />
       {btn && <div className="guess-btn-mask">
         <div onClick={() => {
           setBtn(false)
@@ -105,7 +104,7 @@ const Guess = ({ guessRef, guessEnd }: any) => {
             opacity: (result?.length - 1) * 0.1 + 0.1
           }} />
           {!divination && !!result?.length && result?.map(item => <div key={item?.key} className={HEXAGRAM.YIN === item?.data ? 'guess-result-item-yin' : 'guess-result-item-yang'} />)}
-          {divination && <div>{divination}</div>}
+          {divination && <div className="guess-result-divination">{divination}</div>}
         </div>
 
         <div className="guess-wrapper">

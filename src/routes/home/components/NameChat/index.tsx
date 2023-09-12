@@ -14,7 +14,7 @@ import './index.less'
  */
 const Name = () => {
   const commentRef = useRef<any>()
-  const { chatData, modifyChat, updateChat } = useStore<NAME_TYPE_MODEL>(NAME_NAMESPACE);
+  const { chatData, filterChatData, modifyChat, updateChat } = useStore<NAME_TYPE_MODEL>(NAME_NAMESPACE);
   // const [chatCurrent, setChatCurrent] = useState<any[]>([])
 
   const handleSubmit = async (text: string) => {
@@ -34,12 +34,12 @@ const Name = () => {
     setTimeout(() => {
       commentRef?.current?.scrollBottom()
     }, 100)
-  }, [chatData])
+  }, [filterChatData])
 
   return (
     <div className="name-wrapper">
       <div className='name-chat-wrapper'>
-        <ChatFrame comments={chatData} defaultMsg="您好，我是你的起名小助手，请问你想对什么事物起名呢？" commentRef={commentRef} />
+        <ChatFrame comments={filterChatData} defaultMsg="您好，我是你的起名小助手，请问你想对什么事物起名呢？" commentRef={commentRef} />
         <ChatInput onSubmit={handleSubmit} />
       </div>
     </div >
