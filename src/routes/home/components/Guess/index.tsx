@@ -4,7 +4,7 @@ import Particles from "react-tsparticles";
 
 import Container from "./Container";
 import Coins from "./Coins";
-import { HEXAGRAM } from "@constants/common";
+import Trigram from "@components/Trigram";
 
 // import useTrail from "@hooks/useTrail";
 import useRepulse from "@hooks/useRepulse";
@@ -14,7 +14,7 @@ import { HOME_NAMESPACE, HOME_TYPE_MODEL } from "@routes/home/models";
 import './index.less'
 
 const Guess = ({ guessRef, guessEnd }: any) => {
-  const { divination, resetDivination, getDivination } = useStore<HOME_TYPE_MODEL>(HOME_NAMESPACE);
+  const { divination, resetDivinationData, getGenImg, getDivination } = useStore<HOME_TYPE_MODEL>(HOME_NAMESPACE);
   const [btn, setBtn] = useState(true)
   const coinRef = useRef<any>()
   const containerRef = useRef<any>()
@@ -30,7 +30,7 @@ const Guess = ({ guessRef, guessEnd }: any) => {
     setShow(false)
     setResult([])
     setBtn(true)
-    resetDivination()
+    resetDivinationData()
   }
 
   const particlesLoaded = useCallback(async (container: any) => {
@@ -38,11 +38,15 @@ const Guess = ({ guessRef, guessEnd }: any) => {
   }, []);
 
   const getDivinationFn = async (_result: any[]) => {
+    const text = _result?.map(item => item?.data)?.join('')
+    getGenImg({
+      text,
+    })
     const _divination = await getDivination({
-      text: _result?.map(item => item?.data)?.join('')
+      text,
     })
     setTimeout(() => {
-      guessEnd?.(_divination)
+      guessEnd?.({ divination: _divination, result: _result })
       hideGuess()
     }, 1000)
   }
@@ -103,7 +107,7 @@ const Guess = ({ guessRef, guessEnd }: any) => {
           <div className={`guess-result-bg ${result?.length !== 6 ? 'run' : ''}`} style={{
             opacity: (result?.length - 1) * 0.1 + 0.1
           }} />
-          {!divination && !!result?.length && result?.map(item => <div key={item?.key} className={HEXAGRAM.YIN === item?.data ? 'guess-result-item-yin' : 'guess-result-item-yang'} />)}
+          {!divination && <Trigram data={result} />}
           {divination && <div className="guess-result-divination">{divination}</div>}
         </div>
 

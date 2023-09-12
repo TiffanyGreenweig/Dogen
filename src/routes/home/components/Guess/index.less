@@ -92,8 +92,11 @@
     }
   }
   .guess-wrapper {
-    position: relative;
-    margin: 0 auto;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    margin-top: -300px;
+    margin-left: -300px;
     width: 600px;
     height: 600px;
     animation: show 1s ease;
@@ -147,6 +150,7 @@
     justify-content: center;
     color: #fff;
     .guess-result-divination {
+      margin: 8px 0;
       font-family: seal !important;
       font-size: 20px;
       opacity: 1;
@@ -163,30 +167,6 @@
       background-size: 100% auto;
       &.run {
         animation: run-result 3s  linear infinite;
-      }
-    }
-    .guess-result-item-yin,
-    .guess-result-item-yang {
-      z-index: 9;
-      margin-bottom: 8px;
-      width: 80px;
-      height: 10px;
-      animation: show 1s ease;
-    }
-    // 一横
-    .guess-result-item-yang {
-      background-color: #fff;
-    }
-    // 两横
-    .guess-result-item-yin {
-      display: flex;
-      justify-content: space-between;
-      &::before,
-      &::after {
-        width: 35px;
-        height: 10px;
-        background-color: #fff;
-        content: "";
       }
     }
   }

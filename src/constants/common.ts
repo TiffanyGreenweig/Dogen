@@ -31,6 +31,9 @@ export const DATA_ENUM: any = {
   }
 }
 
+// 开始卜卦对比文案
+export const DIVINATION_FLAG = '卦象结果'
+
 // 爻
 export const HEXAGRAM = {
   YIN: 0, // 阴 - -

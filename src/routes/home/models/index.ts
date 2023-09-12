@@ -1,4 +1,4 @@
-import { ROLES_ENUM } from '@constants/common';
+import { DIVINATION_FLAG, ROLES_ENUM } from '@constants/common';
 import REQUEST from '@service/request';
 import { flow, Instance, types } from 'mobx-state-tree';
 
@@ -13,13 +13,19 @@ const HomeModel = types
   .model({
     chatData: types.optional(types.frozen<any>(), []),
     divination: types.optional(types.frozen<string>(), ''),
+    genImg: types.optional(types.frozen<string>(), ''),
   })
   .views(self => {
     return {
       get filterChatData() {
-        const filterData = (self?.chatData || [])?.filter((item: IChatItem) => item?.role === ROLES_ENUM.USER || item?.role === ROLES_ENUM.ASSISTANT)
+        const filterData = self?.chatData?.length > 2 ? (self?.chatData || [])?.slice(2) : self?.chatData
         return filterData;
       },
+      // 根据chatGpt返回文案是否包含[卦象结果]自动触发卜卦
+      get divinationFlag() {
+        const lastAssistant = self?.chatData?.findLast((item: any) => item?.role === ROLES_ENUM.ASSISTANT)
+        return lastAssistant?.content?.indexOf(DIVINATION_FLAG) > -1
+      }
     };
   })
   .actions((self: any) => {
@@ -41,8 +47,18 @@ const HomeModel = types
       return divination
     });
 
-    const resetDivination = () => {
+    const getGenImg = flow(function* (params?: any) {
+      const genImg = yield REQUEST(
+        'POST',
+        `/divination/gen_img`,
+      )(params);
+      self.genImg = genImg
+      return genImg
+    });
+
+    const resetDivinationData = () => {
       self.divination = '';
+      self.genImg = '';
     }
 
     const updateChat = (data: any[]) => {
@@ -52,13 +68,14 @@ const HomeModel = types
     // 重置数据
     const resetModel = () => {
       self.chatData = [];
-      resetDivination()
+      resetDivinationData()
     };
     return {
       modifyChat,
       updateChat,
       getDivination,
-      resetDivination,
+      getGenImg,
+      resetDivinationData,
       resetModel,
     };
   })

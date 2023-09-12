@@ -33,7 +33,7 @@ const REQUEST = <Req, Res>(method: Method, apiPath: string, options?: any) => {
       method,
       baseURL: baseURL,
       url,
-      timeout: 20000,
+      timeout: 60000,
     };
 
     const apiParams = getRequestParams(apiPath, url, params);

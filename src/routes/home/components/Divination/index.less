@@ -1,0 +1,59 @@
+.divination-wrapper {
+  width: 100vw;
+  .divination-guess-record {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    right: calc(50vw - 560px);
+    margin-top: -250px;
+    font-size: 18px;
+    line-height: 1.2;
+    line-height: 1;
+    color: rgb(000 000 000 / 90%);
+    flex-direction: column;
+    align-items: center;
+    p {
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+    .divination-guess-img {
+      position: relative;
+      margin-top: 22px;
+      border-radius: 6px;
+      width: 200px;
+      p {
+        font-size: 14px;
+      }
+      div {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 28px;
+        font-size: 14px;
+        line-height: 2;
+        text-align: center;
+        color: #fff;
+        background-color: rgb(0 0 0 / 20%);
+        opacity: .8;
+      }
+      img {
+        display: block;
+        border-radius: 6px;
+        width: 100%;
+        height: auto;
+        box-shadow: 0 0 30px 10px rgb(0 0 0 / 20%);
+        cursor: pointer;
+      }
+    }
+  }
+  .divination-tip {
+    position: fixed;
+    top: 50%;
+    left: calc(50vw - 500px);
+    margin-top: -250px;
+    width: 140px;
+    height: 500px;
+    font-size: 18px;
+    writing-mode: vertical-lr;
+  }
+}

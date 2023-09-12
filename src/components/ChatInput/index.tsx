@@ -21,7 +21,7 @@ const ChatInput = ({ onSubmit, chatForm }: any) => {
   return (
     <Form className="chat-ChatInput-wrapper" form={chatForm}>
       <Form.Item name="text">
-        <TextArea rows={4} readOnly={submitting}
+        <TextArea rows={3} readOnly={submitting}
           style={{ resize: 'none' }} />
       </Form.Item>
       <Form.Item className="chat-ChatInput-btn">
