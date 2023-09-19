@@ -2,6 +2,7 @@ import { ChatFrame } from "@components/ChatFrame";
 import ChatInput from "@components/ChatInput";
 import { ROLES_ENUM } from "@constants/common";
 import { useStore } from "@models/store";
+import { Form } from "antd";
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useRef } from "react";
 import { NAME_NAMESPACE, NAME_TYPE_MODEL } from "../../models/name";
@@ -15,6 +16,7 @@ import './index.less'
 const Name = () => {
   const commentRef = useRef<any>()
   const { chatData, filterChatData, modifyChat, updateChat } = useStore<NAME_TYPE_MODEL>(NAME_NAMESPACE);
+  const [nameChatForm] = Form.useForm()
   // const [chatCurrent, setChatCurrent] = useState<any[]>([])
 
   const handleSubmit = async (text: string) => {
@@ -40,7 +42,7 @@ const Name = () => {
     <div className="name-wrapper">
       <div className='name-chat-wrapper'>
         <ChatFrame comments={filterChatData} defaultMsg="您好，我是你的起名小助手，请问你想对什么事物起名呢？" commentRef={commentRef} />
-        <ChatInput onSubmit={handleSubmit} />
+        <ChatInput onSubmit={handleSubmit} chatForm={nameChatForm} />
       </div>
     </div >
   )

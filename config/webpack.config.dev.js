@@ -198,10 +198,7 @@ module.exports = () => {
       // for React Native Web.
       extensions: paths.moduleFileExtensions.map(ext => `.${ext}`),
       alias: {
-        react: path.resolve(__dirname, '../node_modules/react'),
-        'react-dom': path.resolve(__dirname, '../node_modules/react-dom'),
         ...(modules.webpackAliases || {}),
-        'antd-mobile': path.join(__dirname, '../node_modules/antd-mobile/2x'),
       },
     },
     module: {
@@ -212,6 +209,12 @@ module.exports = () => {
           exclude: /@babel(?:\/|\\{1,2})runtime/,
           test: /\.(js|mjs|jsx|ts|tsx|css)$/,
           loader: require.resolve('source-map-loader'),
+        },
+        {
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false,
+          },
         },
         {
           // "oneOf" will traverse all following loaders until one will
