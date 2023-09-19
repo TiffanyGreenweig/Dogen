@@ -10,7 +10,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const postcssWriteSvg = require('postcss-write-svg');
 const cssnano = require('cssnano');
@@ -605,7 +605,7 @@ module.exports = () => {
       }),
       // 统计重新引用
       process.env.REACT_APP_ANALYZER_CHECKER === 'true' && new DuplicatePackageCheckerPlugin(),
-      process.env.REACT_APP_ANALYZER_CHECKER === 'true' && new BundleAnalyzerPlugin(),
+      // process.env.REACT_APP_ANALYZER_CHECKER === 'true' && new BundleAnalyzerPlugin(),
     ].filter(Boolean),
   };
 };
